@@ -8,7 +8,7 @@ const ItemSchemeValidate = require('../models/Item');
 module.exports = {
     // FOR GET METHODS
     async index (req, res) {
-        console.log(`[GET] << ${new Date()} >> /index from ${req.hostname}`)
+        console.log(`[${req.method}] << ${new Date()} >> ${req.originalUrl} from ${req.hostname}`)
         // const { page } stands for deconstruct method in JS
         const { page = 1, perPage = 10 } = req.query;
         // configure pagination, page is the page itself, limit is the limit of objects in the page
@@ -18,13 +18,13 @@ module.exports = {
     },
     // FOR GET METHODS WITH EXCLUSIVE ID
     async show (req, res) {
-        console.log(`[GET] << ${new Date()} >> /index/${req.params.title} from ${req.hostname}`)
-        const item = await Item.findById(req.params.title);
+        console.log(`[${req.method}] << ${new Date()} >> ${req.originalUrl} from ${req.hostname}`)
+        const item = await Item.findById(req.params.id);
         return res.json(item);
     },
     // FOR POST METHODS
     async create (req, res) {
-        console.log(`[POST] << ${new Date()} >> /index from ${req.hostname}`)
+        console.log(`[${req.method}] << ${new Date()} >> ${req.originalUrl} from ${req.hostname}`)
         try {
             // 'validate' function from Joi  
             const value = await ItemSchemeValidate.validate(req.body);
@@ -42,8 +42,7 @@ module.exports = {
 
     // FOR PUT METHODS
     async update (req, res) {
-        console.log(`[PUT] << ${new Date()} >> /index from ${req.hostname}`)
-
+        console.log(`[${req.method}] << ${new Date()} >> ${req.originalUrl} from ${req.hostname}`)
         try {
             const value = await ItemSchemeValidate.validate(req.body);
             if (value.error != undefined) {
@@ -59,7 +58,7 @@ module.exports = {
     },
     // FOR DELETE METHODS
     async destroy (req, res) {
-        console.log(`[DELETE] << ${new Date()} >> /index/${req.params.id} from ${req.hostname}`)
+        console.log(`[${req.method}] << ${new Date()} >> ${req.originalUrl} from ${req.hostname}`)
         const item = await Item.findByIdAndRemove(req.params.id);
         //  Status 202 for request accepted and added to queue
         return res.sendStatus(202);

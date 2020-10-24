@@ -6,7 +6,8 @@ const Joi = require('joi'); // VALIDATION LIBRARY
 const ItemSchemeValidate = new Joi.object({
     title: Joi.string()
         .min(3)
-        .max(30),
+        .max(30)
+        .required(),
     price: Joi.number(),
     currency: Joi.string()
         .alphanum()
@@ -22,7 +23,7 @@ const ItemSchemeValidate = new Joi.object({
 const ItemScheme = new mongoose.Schema({
     title: {
         type: String,
-        required: false,
+        required: true,
     },
     price: {
         type: Number,

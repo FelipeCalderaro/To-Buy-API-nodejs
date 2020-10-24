@@ -13,7 +13,7 @@ routes.get('/', (req, res) => { return res.json({ status: 'OK' }) });
 
 // GET
 routes.get('/items', ItemController.index);
-routes.get('/items/:title', ItemController.show);
+routes.get('/items/:id', ItemController.show);
 
 // POST
 routes.post('/items', ItemController.create);
